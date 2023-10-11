@@ -7,6 +7,7 @@
 </head>
 <body>
     <button id="getText">Get Text</button>
+    <button id="getUsers">Get Users</button>
     <div id="output">
 
     </div>
@@ -19,11 +20,29 @@
                 document.getElementById('output').innerHTML = data;
             })
             .catch(err => console.log(err))
+        }
 
-
+        const getUsers = () => {
+            fetch('users.json')
+            .then(res => res.json())
+            .then(data => {
+                let output = '<h2>Users</h2>';
+                data.forEach(function(user){
+                    output+=`
+                        <ul>
+                            <li>ID: ${user.id}</li>
+                            <li>Name: ${user.name}</li>
+                            <li>Email: ${user.email}</li>
+                        </ul>
+                    `;
+                })
+                document.getElementById('output').innerHTML = output;
+            })
+            
         }
 
         document.getElementById('getText').addEventListener('click', getText);
+        document.getElementById('getUsers').addEventListener('click', getUsers);
     </script>
 </body>
 </html>
